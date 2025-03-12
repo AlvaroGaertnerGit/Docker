@@ -1,0 +1,30 @@
+# Usa una imagen base de OpenJDK 17 con Debian Slim (más ligera)
+FROM openjdk:17-jdk-slim
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Instalar Git y limpiar archivos innecesarios
+RUN apt-get update && apt-get install -y git \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Definir el repositorio y credenciales (usa tokens en lugar de usuario/contraseña)
+ARG GIT_REPO_URL=https://github.com/AlvaroGaertnerGit/MathView-API-user.git
+
+# Clonar el repositorio privado (usando un token de acceso personal)
+RUN git clone $GIT_REPO_URL /app/ms-users
+
+# Cambiar al directorio del proyecto
+WORKDIR /app/ms-users
+
+# Otorgar permisos de ejecución a mvnw
+RUN chmod +x mvnw
+
+# Construir el proyecto con Maven
+RUN ./mvnw clean package -DskipTests
+
+# Exponer el puerto (ajustar si tu app usa otro)
+EXPOSE 8081
+
+# Ejecutar la aplicación JAR
+CMD ["sh", "-c", "java -jar target/*.jar"]
