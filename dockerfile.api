@@ -20,4 +20,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
 
 # Ejecutar el backend con Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "Backend.wsgi:application"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "--timeout", "300", "Backend.wsgi:application"]
