@@ -27,5 +27,5 @@ ENV PYTHONUNBUFFERED=1 \
 # Exponer el puerto para Gunicorn
 EXPOSE 8000
 
-# Ejecutar Gunicorn como servidor WSGI
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "Backend.wsgi:application"]
+# Ejecutar el backend con Gunicorn
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "--timeout", "300", "Backend.wsgi:application"]
