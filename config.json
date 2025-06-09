@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "siteConfig": {
+      "acrUseManagedIdentityCreds": true,
+      "linuxFxVersion": "DOCKER|mathviewacr.azurecr.io/mathview-front:latest"
+    }
+  }
+}
